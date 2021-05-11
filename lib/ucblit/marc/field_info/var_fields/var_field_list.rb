@@ -26,15 +26,15 @@ module UCBLIT
             sections.sum(&:size)
           end
 
-          def empty?
-            size == 0
-          end
-
           def reject_obsoletes
             VarFieldList.new(
               desc: desc,
               sections: _reject_obsolete(sections)
             )
+          end
+
+          def to_s
+            sections.map(&:to_s).join("\n")
           end
         end
       end

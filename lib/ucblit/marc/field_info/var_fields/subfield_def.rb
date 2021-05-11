@@ -11,7 +11,7 @@ module UCBLIT
 
           attr_reader :code, :desc, :values
 
-          def initialize(code:, desc:, values:)
+          def initialize(code:, desc:, values: [])
             @code = code
             @desc = desc
             @values = values
@@ -25,6 +25,23 @@ module UCBLIT
             return to_enum(:each_value) unless block_given?
 
             values.each(&block)
+          end
+
+          INDENT = '    '.freeze
+          private_constant :INDENT
+
+          def to_s
+            lines = ["$#{code_str} - #{desc}"]
+            values.each { |v| lines << INDENT + v.to_s }
+            lines.join("\n")
+          end
+
+          private
+
+          def code_str
+            return code.to_s unless code.is_a?(Range)
+
+            "#{code.first}-#{code.last}"
           end
         end
       end

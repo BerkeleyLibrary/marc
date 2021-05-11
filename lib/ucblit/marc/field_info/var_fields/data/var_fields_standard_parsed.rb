@@ -4,7 +4,7 @@ module UCBLIT
   module Marc
     module FieldInfo
       module VarFields
-        STANDARD_PARSED = 
+        STANDARD_PARSED =
           {
             doc_comments: [
               { comment: 'MARC 21 Format for Bibliographic Data Field List' },
@@ -6569,7 +6569,7 @@ module UCBLIT
                 ]
               }
             ]
-          }
+          }.freeze
       end
     end
   end

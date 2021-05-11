@@ -37,6 +37,12 @@ module UCBLIT
               var_fields: _reject_obsolete(var_fields)
             )
           end
+
+          def to_s
+            blocks = ["--#{desc}--"]
+            blocks.concat(var_fields.map(&:to_s))
+            blocks.join("\n")
+          end
         end
       end
     end

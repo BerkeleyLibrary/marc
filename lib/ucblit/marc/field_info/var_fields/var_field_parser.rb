@@ -78,7 +78,7 @@ module UCBLIT
                 (sf_code.as(:code1) >> str('-') >> sf_code.as(:code2)) | # range - rarely used (e.g. 886a-z, 0-9)
                   sf_code.as(:code) # single code - typical case
               ) >>
-              (str(' - ') | str(' ')) >> text.as(:desc) >>
+              (str(' - ') | str(' ')) >> text.as(:desc) >> # 880 doesn't have -, probably a typo
               (indent >> subfield_value).repeat(0).as(:values)
           }
 

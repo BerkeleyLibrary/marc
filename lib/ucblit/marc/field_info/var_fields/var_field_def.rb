@@ -8,7 +8,6 @@ module UCBLIT
     module FieldInfo
       module VarFields
         class VarFieldDef
-          include Comparable
           include Obsolescible
 
           attr_reader :tag, :desc, :indicators, :subfield_codes, :inst_or_voices_codes
@@ -22,7 +21,13 @@ module UCBLIT
           end
 
           def to_s
-            "#{tag} - #{desc}"
+            blocks = ["#{tag} - #{desc}"]
+
+            concat_indented(blocks, indicators, 'Indicators')
+            concat_indented(blocks, subfield_codes, 'Subfield Codes')
+            concat_indented(blocks, inst_or_voices_codes, 'Instrument or Voices Codes')
+
+            blocks.join("\n")
           end
 
           def reject_obsoletes
@@ -35,56 +40,19 @@ module UCBLIT
             )
           end
 
-          def repeatable?
-            @repeatable
-          end
+          private
 
-          def ind1
-            ind_defs.select { |id| id.pos == 1 }.first
-          end
+          INDENT = '   '.freeze
+          private_constant :INDENT
 
-          def ind2
-            ind_defs.select { |id| id.pos == 2 }.first
-          end
+          def concat_indented(blocks, values, header)
+            return if values.empty?
 
-          def ind_defs
-            @ind_defs ||= []
-          end
-
-          def add_ind_def(ind_def)
-            raise ArgumentError, "Not an indicator definition: #{ind_def.inspect}" unless ind_def.is_a?(IndDef)
-            raise ArgumentError, "Unknown indicator position: #{ind_def.pos}" unless [1, 2].include?(ind_def.pos)
-
-            index = ind_def.pos - 1
-            raise ArgumentError, "#{self}: Indicator #{index} already set: #{ind_defs[index]}" if ind_defs[index]
-
-            ind_defs[index] = ind_def
-          end
-
-          def sf_defs
-            @sf_defs ||= {}
-          end
-
-          def add_sf_def(sf_def)
-            code = sf_def.code
-            if (current = sf_defs[code])
-              raise ArgumentError, "#{self}: Subfield code #{code} already defined: #{current}; can't set new definition #{sf_def}"
+            blocks << INDENT + header
+            values.each do |v|
+              lines = v.to_s.lines(chomp: true)
+              lines.each { |line| blocks << INDENT + INDENT + line }
             end
-
-            sf_defs[code] = sf_def
-          end
-
-          def <=>(other)
-            return nil unless other.is_a?(VarFieldDef)
-
-            %i[tag desc repeatable].each do |attr|
-              o = send(attr) <=> other.send(attr)
-              return o if o != 0
-
-              # TODO: sort by indicator definitions, subfield codes etc.?
-            end
-
-            0
           end
 
         end

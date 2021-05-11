@@ -11,9 +11,11 @@ module UCBLIT
 
         class << self
 
-          def standard
-            parse_tree = UCBLIT::Marc::FieldInfo::VarFields::STANDARD_PARSED
-            VarFieldTransform.new.apply(parse_tree).reject_obsoletes
+          def standard(obsolete: false)
+            @standard_all ||= VarFieldTransform.new.apply(UCBLIT::Marc::FieldInfo::VarFields::STANDARD_PARSED)
+            return @standard_all if obsolete
+
+            @standard ||= @standard_all.reject_obsoletes
           end
 
         end

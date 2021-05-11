@@ -24,7 +24,7 @@ module UCBLIT
             end
           end
 
-          it 'includes no obsolete anything' do
+          it 'by default, includes no obsolete anything' do
             aggregate_failures 'obsolete stuff' do
               standard.each do |vf|
                 expect(vf).not_to be_obsolete
@@ -55,6 +55,23 @@ module UCBLIT
                   expect(c.desc).not_to include('OBSOLETE')
                 end
               end
+            end
+          end
+
+          it 'returns obsolete fields with a flag' do
+            lines_actual = VarFields.standard(obsolete: true).to_s.lines(chomp: true).map(&:strip)
+
+            var_fields_standard_txt = File.read('lib/ucblit/marc/field_info/var_fields/data/var_fields_standard.txt')
+            lines_expected = var_fields_standard_txt
+              .lines(chomp: true)
+              .map(&:strip)
+              .reject { |line| line.empty? || line.start_with?('//') }
+
+            expect(lines_actual.size).to eq(lines_expected.size)
+            lines_expected.each_with_index do |l_ex, i|
+              # typo in standard.txt definition of 880 subfields
+              l_ex = l_ex.sub('Same', '- Same') if i >= 5052 && i <= 5056
+              expect(lines_actual[i]).to eq(l_ex), "Wrong value at line #{i}:\n\texpected: #{l_ex}, actual: #{lines_actual[i]}"
             end
           end
         end

@@ -66,13 +66,7 @@ module UCBLIT
 
           # sf_code_def (range code, e.g. 886a-z, 0-9)
           rule(code1: simple(:code1), code2: simple(:code2), desc: simple(:desc), values: sequence(:values)) {
-            code_range = begin
-              (code1.to_s..code2.to_s)
-            rescue ArgumentError => e
-              e.message << " (#{code1.inspect}..#{code2.inspect})"
-              raise
-            end
-            SubfieldDef.new(code: code_range, desc: desc, values: values.map(&:to_subfield_val))
+            SubfieldDef.new(code: (code1.to_s..code2.to_s), desc: desc, values: values.map(&:to_subfield_val))
           }
 
           # ------------------------------------------------------------

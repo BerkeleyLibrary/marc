@@ -9,6 +9,8 @@ module UCBLIT
           # TODO: include Comparable
           include Obsolescible
 
+          POS_NAMES = { 1 => 'First', 2 => 'Second' }.freeze
+
           attr_reader :pos
           attr_reader :desc
           attr_reader :val_defs
@@ -26,7 +28,9 @@ module UCBLIT
           end
 
           def to_s
-            "#{pos} - #{desc}"
+            lines = ["#{POS_NAMES[pos]} - #{desc}"]
+            val_defs.each { |v| lines << "   #{v}" }
+            lines.join("\n")
           end
         end
       end

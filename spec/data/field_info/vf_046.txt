@@ -1,0 +1,32 @@
+046 - SPECIAL CODED DATES (R)
+   Indicators
+      First - Undefined
+         # - Undefined
+      Second - Undefined
+         # - Undefined
+   Subfield Codes
+      $a - Type of date code (NR)
+          i - Inclusive dates of collection
+          k - Bulk of collection
+          m - Multiple dates
+          n - Unknown dates
+          p - Distribution/release/issue and production/recording session dates
+          q - Questionable date
+          r - Reissue and originaldates
+          s - Single known/probable date
+          t - Publication date and copyright dates
+          x - Incorrect dates
+      $b - Date 1 (B.C.E. date) (NR)
+      $c - Date 1 (C.E. date) (NR)
+      $d - Date 2 (B.C.E. date) (NR)
+      $e - Date 2 (C.E. date) (NR)
+      $j - Date resource modified (NR)
+      $k - Beginning or single date created (NR)
+      $l - Ending date created (NR)
+      $m - Beginning of date valid (NR)
+      $o - Single or starting date for aggregated content (NR)
+      $p - Ending date for aggregated content (NR)
+      $n - End of date valid (NR)
+      $2 - Source of date (NR)
+      $6 - Linkage (NR)
+      $8 - Field link and sequence number (R)
