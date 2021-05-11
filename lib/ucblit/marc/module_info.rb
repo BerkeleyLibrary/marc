@@ -7,7 +7,7 @@ module UCBLIT
       SUMMARY = 'MARC utilities'.freeze
       DESCRIPTION = 'UC Berkeley Library utility gem for working with MARC records'.freeze
       LICENSE = 'MIT'.freeze
-      VERSION = '0.1.0'.freeze
+      VERSION = '0.1.1'.freeze
       HOMEPAGE = 'https://git.lib.berkeley.edu/lap/ucblit-marc'.freeze
     end
   end
