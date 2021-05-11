@@ -1,8 +1,13 @@
 require 'spec_helper'
-require 'marc_extensions'
 
 describe MARC::Record do
-  let(:marc_record) { MARC::XMLReader.new('spec/data/record-187888.xml').first }
+  let(:marc_record) { MARC::XMLReader.read('spec/data/record-187888.xml').first }
+
+  describe :record_id do
+    it 'returns the 001 control field value, if present' do
+      expect(marc_record.record_id).to eq('187888')
+    end
+  end
 
   describe :freeze do
     it 'freezes the fields' do
@@ -67,16 +72,16 @@ describe MARC::Record do
     end
   end
 
-  describe :each_data_field do
+  describe :data_fields do
     it 'returns only the data fields' do
       expected_tags = %w[024 035 245 336 505 505 505 505 505 505 540 852 856 856 901 902 902 980 982 991]
-      dff = marc_record.each_data_field.to_a
+      dff = marc_record.data_fields
       expect(dff.size).to eq(expected_tags.size)
       expect(dff.map(&:tag)).to eq(expected_tags)
     end
 
     it 'returns the data fields in order as they appear' do
-      dff = marc_record.each_data_field.to_a
+      dff = marc_record.data_fields
       dff_856 = dff.select { |df| df.tag == '856' }
       expect(dff_856.size).to eq(2) # just to be sure
       expected_sf9_values = %w[4a939fe2-2665-4c67-832b-b0e5267db449 0aacdd29-b467-4c5c-93ab-415069f431c0]
@@ -97,6 +102,25 @@ describe MARC::Record do
 
       fields.insert(df_852_ix + 1, df_852)
       expect(fields[df_852_ix, 3]).to eq([df_856_1, df_852, df_856_2]) # just to be sure
+
+      dff = marc_record.data_fields
+      df_852_ix = dff.find_index { |df| df.tag == '852' }
+      expect(dff[df_852_ix, 3]).to eq([df_852, df_856_1, df_856_2])
+    end
+  end
+
+  describe :each_data_field do
+    it 'returns only the data fields, in order' do
+      expect(marc_record.each_data_field.to_a).to eq(marc_record.data_fields)
+    end
+
+    it 'groups fields by tag even when disordered' do
+      fields = marc_record.fields
+
+      df_852_ix = fields.find_index { |df| df.tag == '852' }
+      df_852 = fields.delete_at(df_852_ix)
+      df_856_1, df_856_2 = fields[df_852_ix, 2]
+      fields.insert(df_852_ix + 1, df_852)
 
       dff = marc_record.each_data_field.to_a
       df_852_ix = dff.find_index { |df| df.tag == '852' }
