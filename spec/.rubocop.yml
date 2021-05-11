@@ -5,9 +5,6 @@ AllCops:
   Exclude:
     - 'suite/**/*'
 
-Style/ClassAndModuleChildren:
-  Enabled: false
-
 Style/MultilineBlockChain:
   Enabled: false
 

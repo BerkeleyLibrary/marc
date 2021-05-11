@@ -1,6 +1,7 @@
-# Adapted from https://docs.google.com/spreadsheets/d/1QbIxsJGosgzKYBXhDhJJlTZtvCRjz75TRecn1cbDhm8/edit
-# Retrieved 2021-01-15
-# TODO: check Google Sheets automatically for updates
+// Adapted from https://docs.google.com/spreadsheets/d/1QbIxsJGosgzKYBXhDhJJlTZtvCRjz75TRecn1cbDhm8/edit
+// Retrieved 2021-01-15
+
+// TODO: check Google Sheets automatically for updates
 
 852 - LOCATION (R)
    Indicators
@@ -75,7 +76,7 @@
    Subfield Codes
       $a - Restricted collection identifier
 
-998	- AV TRACK INFO (R)
+998 - AV TRACK INFO (R)
    Indicators
       First - Undefined
          # - Undefined
@@ -86,7 +87,7 @@
       $t - Title
       $g - Relative path [REQUIRED]
 
-# Note: 856 is not documented in the spreadsheet, but inferred from use
+// Note: 856 is not documented in the spreadsheet, but inferred from use
 
 856 - ELECTRONIC LOCATION AND ACCESS (R)
    Indicators

@@ -1,6 +1,6 @@
-# MARC 21 Format for Bibliographic Data Field List
-# Adapted from https://www.loc.gov/marc/bibliographic/ecbdlist.html
-# Retrieved 2021-01-13
+// MARC 21 Format for Bibliographic Data Field List
+// Adapted from https://www.loc.gov/marc/bibliographic/ecbdlist.html
+// Retrieved 2021-01-13
 
 --Number and Code Fields (01X-04X)--
 010 - LIBRARY OF CONGRESS CONTROL NUMBER (NR)
@@ -2121,7 +2121,7 @@
          # - Undefined
       Second - Undefined
          # - Undefined
-   Subfields
+   Subfield Codes
       $a - Originator control term (NR)
       $b - Originating agency (R)
       $c - Authorized recipients of material (R)
@@ -3137,6 +3137,7 @@
          1 - Not private
       Second - Undefined
          # - Undefined
+   Subfield Codes
       $a - Personal creator (NR)
       $b - Personal creator death date (NR)
       $c - Corporate creator (NR)

@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ruby_version
 
   spec.add_dependency 'marc', '~> 1.0'
+  spec.add_dependency 'parslet', '~> 2.0'
 
   spec.add_development_dependency 'bundle-audit', '~> 0.1'
   spec.add_development_dependency 'ci_reporter_rspec', '~> 1.0'
