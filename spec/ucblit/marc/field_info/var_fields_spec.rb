@@ -76,6 +76,28 @@ module UCBLIT
           end
         end
       end
+
+      # TODO: get these working
+      xdescribe 'custom fields' do
+        let(:berkeley_9xx) { VarFields.berkeley_9xx }
+        let(:tind_reserved) { VarFields.tind_reserved }
+        let(:ucblit_tind) { VarFields.ucblit_tind }
+
+        it 'loads all berkeley_9xx fields' do
+          expect(berkeley_9xx).to be_a(VarFields::VarFieldList)
+          expect(berkeley_9xx.size).to eq(25) # TODO: more assertions
+        end
+
+        it 'loads all tind_reserved fields' do
+          expect(tind_reserved).to be_a(VarFields::VarFieldList)
+          expect(tind_reserved.size).to eq(4) # TODO: more assertions
+        end
+
+        it 'loads all ucblit_tind fields' do
+          expect(ucblit_tind).to be_a(VarFields::VarFieldList)
+          expect(ucblit_tind.size).to eq(9) # TODO: more assertions
+        end
+      end
     end
   end
 end

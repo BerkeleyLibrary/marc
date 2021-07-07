@@ -558,6 +558,31 @@ module UCBLIT
                 it "parses #{basename}" do
                   list = File.read(p)
                   expect(parser).to parse(list, trace: true)
+
+                  # parse_tree = parser.parse(list)
+                  # const_name = basename.sub(/^var_fields_/, '').sub(/\.txt/, '_parsed').upcase
+                  # header = <<~HEADER
+                  #     module UCBLIT
+                  #       module Marc
+                  #         module FieldInfo
+                  #           module VarFields
+                  #             #{const_name} =
+                  # HEADER
+                  # footer = <<~FOOTER
+                  #           end
+                  #         end
+                  #       end
+                  #     end
+                  # FOOTER
+                  #
+                  # parse_tree_src = StringIO.new.tap do |out|
+                  #   out.puts(header)
+                  #   PP.pp(parse_tree, out)
+                  #   out.puts(footer)
+                  # end.string.gsub(/@[0-9]+/, '')
+                  #
+                  # parsed_file = p.sub(/\.txt/, '_parsed.rb')
+                  # File.write(parsed_file, parse_tree_src)
                 end
               end
             end
