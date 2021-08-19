@@ -1,3 +1,4 @@
-# ucblit-marc
+# BerkeleyLibrary::Marc
 
-Utility gem for working with MARC records.
+MARC-related utility code and opinionated extensions to [ruby-marc](https://github.com/ruby-marc/ruby-marc)
+for the UC Berkeley Library.

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ucblit-marc.iml" filepath="$PROJECT_DIR$/.idea/ucblit-marc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/marc.iml" filepath="$PROJECT_DIR$/.idea/marc.iml" />
     </modules>
   </component>
 </project>

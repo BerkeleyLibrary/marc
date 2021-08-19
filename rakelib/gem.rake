@@ -1,7 +1,7 @@
 require 'rubygems/gem_runner'
-require 'ucblit/marc/module_info'
+require 'berkeley_library/marc/module_info'
 
-gem_root_module = UCBLIT::Marc
+gem_root_module = BerkeleyLibrary::Marc
 
 class << gem_root_module
   def project_root

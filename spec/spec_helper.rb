@@ -24,4 +24,4 @@ end
 # ------------------------------------------------------------
 # Code under test
 
-require 'ucblit/marc'
+require 'berkeley_library/marc'

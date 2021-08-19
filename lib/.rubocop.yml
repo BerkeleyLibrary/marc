@@ -3,4 +3,4 @@ inherit_from: ../.rubocop.yml
 AllCops:
   # Exclude generated files
   Exclude:
-    - 'ucblit/marc/field_info/var_fields/data/**/*'
+    - 'berkeley_library/marc/field_info/var_fields/data/**/*'
