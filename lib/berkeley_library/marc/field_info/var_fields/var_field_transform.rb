@@ -103,29 +103,30 @@ module BerkeleyLibrary
             )
           }
 
-          rule(
-            tag: simple(:tag),
-            desc: simple(:desc),
-            indicators: sequence(:indicators)
-          ) {
-            VarFieldDef.new(
-              tag: tag,
-              desc: desc,
-              indicators: indicators
-            )
-          }
+          # TODO: reinstate these?
+          # rule(
+          #   tag: simple(:tag),
+          #   desc: simple(:desc),
+          #   indicators: sequence(:indicators)
+          # ) {
+          #   VarFieldDef.new(
+          #     tag: tag,
+          #     desc: desc,
+          #     indicators: indicators
+          #   )
+          # }
 
-          rule(
-            tag: simple(:tag),
-            desc: simple(:desc),
-            subfield_codes: sequence(:subfield_codes)
-          ) {
-            VarFieldDef.new(
-              tag: tag,
-              desc: desc,
-              subfield_codes: subfield_codes
-            )
-          }
+          # rule(
+          #   tag: simple(:tag),
+          #   desc: simple(:desc),
+          #   subfield_codes: sequence(:subfield_codes)
+          # ) {
+          #   VarFieldDef.new(
+          #     tag: tag,
+          #     desc: desc,
+          #     subfield_codes: subfield_codes
+          #   )
+          # }
 
           rule(
             tag: simple(:tag),
