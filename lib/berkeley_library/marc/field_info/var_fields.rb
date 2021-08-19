@@ -18,25 +18,26 @@ module BerkeleyLibrary
             @standard ||= @standard_all.reject_obsoletes
           end
 
-          # def berkeley_9xx(obsolete: false)
-          #   @berkeley_9xx_all ||= VarFieldTransform.new.apply(UCBLIT::Marc::FieldInfo::VarFields::BERKELEY_9XX_PARSED)
-          #   return @berkeley_9xx_all if obsolete
-          #
-          #   @berkeley_9xx ||= @berkeley_9xx_all.reject_obsoletes
-          # end
-          #
+          def berkeley_9xx(obsolete: false)
+            @berkeley_9xx_all ||= VarFieldTransform.new.apply(BerkeleyLibrary::Marc::FieldInfo::VarFields::BERKELEY_9XX_PARSED)
+            return @berkeley_9xx_all if obsolete
+
+            @berkeley_9xx ||= @berkeley_9xx_all.reject_obsoletes
+          end
+
+          # TODO: get these working
           # def tind_reserved(obsolete: false)
-          #   @tind_reserved_all ||= VarFieldTransform.new.apply(UCBLIT::Marc::FieldInfo::VarFields::TIND_RESERVED_PARSED)
+          #   @tind_reserved_all ||= VarFieldTransform.new.apply(BerkeleyLibrary::Marc::FieldInfo::VarFields::TIND_RESERVED_PARSED)
           #   return @tind_reserved_all if obsolete
           #
           #   @tind_reserved ||= @tind_reserved_all.reject_obsoletes
           # end
           #
-          # def ucblit_tind(obsolete: false)
-          #   @ucblit_tind_all ||= VarFieldTransform.new.apply(UCBLIT::Marc::FieldInfo::VarFields::UCBLIT_TIND_PARSED)
-          #   return @ucblit_tind_all if obsolete
+          # def berkeley_tind(obsolete: false)
+          #   @berkeley_tind_all ||= VarFieldTransform.new.apply(BerkeleyLibrary::Marc::FieldInfo::VarFields::BERKELEY_TIND_PARSED)
+          #   return @berkeley_tind_all if obsolete
           #
-          #   @ucblit_tind ||= @ucblit_tind_all.reject_obsoletes
+          #   @berkeley_tind ||= @berkeley_tind_all.reject_obsoletes
           # end
         end
       end

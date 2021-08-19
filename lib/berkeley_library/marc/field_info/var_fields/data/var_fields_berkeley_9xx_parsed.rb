@@ -6,7 +6,8 @@ module BerkeleyLibrary
         BERKELEY_9XX_PARSED =
           { doc_comments: [{ comment: 'Adapted from https://asktico.lib.berkeley.edu/9xx-local-field-use-2/' },
                            { comment: 'Retrieved 2021-01-15' }],
-            sections: [{ var_fields: [{ tag: '900',
+            sections: [{ desc: '9xx local field use',
+                         var_fields: [{ tag: '900',
                                         desc: 'Level 2/Level 3 notes (SCP Shared Cataloging Program information)' },
                                       { tag: '905',
                                         desc: 'Field to retain previous OCLC number/001 when bib record is merged and/or marked for suppression/deletion — to prevent OCLC number duplicates' },
