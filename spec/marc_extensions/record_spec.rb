@@ -208,4 +208,20 @@ describe MARC::Record do
       expect(cff.map(&:tag)).to eq(expected_tags)
     end
   end
+
+  describe :spec do
+    it 'returns the results of a MARCSpec query' do
+      query_str = '856$u{$y~\2}'
+
+      expected_result = marc_record
+        .fields('856')
+        .find { |df| df['y'] =~ /2/ }
+        .subfields.find { |sf| sf.code == 'u' }
+
+      results = marc_record.spec(query_str)
+      expect(results).to be_an(Array)
+      expect(results.size).to eq(1)
+      expect(results[0]).to eq(expected_result)
+    end
+  end
 end

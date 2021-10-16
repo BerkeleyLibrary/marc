@@ -1,4 +1,5 @@
 require 'marc'
+require 'marc/spec'
 require 'marc_extensions/field_map'
 require 'marc_extensions/data_field'
 
@@ -58,7 +59,7 @@ module MARCExtensions
     #
     # @return [Hash<String, Array<MARC::DataField>>] a hash from tags to fields
     def data_fields_by_tag
-      # noinspection RubyYardReturnMatch
+      # noinspection RubyYardReturnMatch,RubyMismatchedReturnType
       each_data_field.with_object({}) { |df, t2df| (t2df[df.tag] ||= []) << df }
     end
 
@@ -88,6 +89,15 @@ module MARCExtensions
     def record_id
       cf_001 = self['001']
       return cf_001.value if cf_001
+    end
+
+    # Apply the provided [MARCSpec](http://marcspec.github.io/MARCspec/marc-spec.html)
+    # query to this record.
+    #
+    # @param query_str [String] A MARCSpec query string
+    # @return [Array] an array of the results of the query
+    def spec(query_str)
+      MARC::Spec.find(query_str, self)
     end
   end
 end
