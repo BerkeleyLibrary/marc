@@ -1,3 +1,8 @@
+# 0.2.1 (2021-10-16)
+
+- Add [MARC::Spec](https://github.com/BerkeleyLibrary/marc-spec)
+  support to `berkeley_library/marc_extensions`
+
 # 0.2.0 (2021-08-19)
 
 - Rename to `BerkeleyLibrary::Marc` in prep for move to GitHub
