@@ -75,7 +75,8 @@ describe MARC::Record do
 
   describe :each_data_field do
     it 'returns only the data fields, in order' do
-      expect(marc_record.each_data_field.to_a).to eq(marc_record.data_fields)
+      each_data_field = marc_record.each_data_field
+      expect(each_data_field.to_a).to eq(marc_record.data_fields)
     end
 
     it 'groups fields by tag even when disordered' do
@@ -89,6 +90,16 @@ describe MARC::Record do
       dff = marc_record.each_data_field.to_a
       df_852_ix = dff.find_index { |df| df.tag == '852' }
       expect(dff[df_852_ix, 3]).to eq([df_852, df_856_1, df_856_2])
+    end
+
+    it 'returns a lazy enumerator if not passed a block' do
+      en = marc_record.each_data_field
+      expect(en).to be_a(Enumerator::Lazy)
+    end
+
+    it 'returns nil if passed a block' do
+      result = marc_record.each_data_field { |_| next }
+      expect(result).to be_nil
     end
   end
 
@@ -104,6 +115,14 @@ describe MARC::Record do
       end
     end
 
+    it 'returns a lazy enumerator' do
+      en = marc_record.each_sorted_by_tag
+      expect(en).to be_a(Enumerator::Lazy)
+
+      en = marc_record.each_sorted_by_tag(tags)
+      expect(en).to be_a(Enumerator::Lazy)
+    end
+
     it 'returns only fields with the specified tags, sorted, in original order' do
       result = []
       marc_record.each_sorted_by_tag(tags) { |f| result << f }
@@ -112,6 +131,9 @@ describe MARC::Record do
 
     it 'returns nil if passed a block' do
       result = marc_record.each_sorted_by_tag(tags) { |_| next }
+      expect(result).to be_nil
+
+      result = marc_record.each_sorted_by_tag { |_| next }
       expect(result).to be_nil
     end
 
@@ -170,6 +192,16 @@ describe MARC::Record do
       cff = marc_record.each_control_field.to_a
       expect(cff.size).to eq(expected_tags.size)
       expect(cff.map(&:tag)).to eq(expected_tags)
+    end
+
+    it 'returns nil if passed a block' do
+      result = marc_record.each_control_field { |_| next }
+      expect(result).to be_nil
+    end
+
+    it 'returns a lazy enumerator if not passed a block' do
+      en = marc_record.each_control_field
+      expect(en).to be_a(Enumerator::Lazy)
     end
   end
 

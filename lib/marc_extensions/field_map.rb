@@ -1,8 +1,8 @@
 require 'marc'
-module MARCExtensions
-  module FieldMapExtensions
 
-    VALID_TAGS = ('000'..'999').freeze
+module MARCExtensions
+  # Extensions to [MARC::FieldMap](https://rubydoc.info/gems/marc/MARC/FieldMap).
+  module FieldMapExtensions
 
     # Gets the specified fields in order by tag.
     #
@@ -23,27 +23,31 @@ module MARCExtensions
     def each_sorted_by_tag(tags = nil, &block)
       reindex unless @clean
 
-      indices_for(tags).map { |i| self[i] }.each(&block)
+      indices = indices_for(tags)
+      fields = indices.map { |i| self[i] }
+      # noinspection RubyMismatchedReturnType
+      fields.each(&block)
+    end
+
+    # Recursively freezes all fields.
+    # @return [MARC::FieldMap] this FieldMap.
+    def freeze
+      unless frozen?
+        reindex unless @clean
+        each(&:freeze)
+      end
+
+      super
     end
 
     private
 
     def indices_for(tags)
-      return all_indices unless tags
-
-      sorted_tag_array(tags)
+      sorted_tag_array(tags || tag_list)
         .lazy                                      # prevent unnecessary allocations
         .map { |t| @tags[t] }                      # get indices for each tag
         .reject(&:nil?)                            # ignoring any tags we don't have fields for
         .flat_map { |x| x }                        # flatten list of indices -- equiv. Array#flatten
-    end
-
-    def all_indices
-      [].tap do |a|
-        @tags.keys.sort.map do |t|
-          a.concat(@tags[t])
-        end
-      end
     end
 
     def sorted_tag_array(tags)
@@ -56,6 +60,7 @@ module MARCExtensions
 end
 
 module MARC
+  # Applies the extensions in {MARCExtensions::FieldMapExtensions}.
   # @see https://rubydoc.info/gems/marc/MARC/FieldMap RubyGems documentation
   class FieldMap
     prepend MARCExtensions::FieldMapExtensions
