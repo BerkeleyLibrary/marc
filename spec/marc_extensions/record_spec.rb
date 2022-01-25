@@ -36,42 +36,6 @@ describe MARC::Record do
     end
   end
 
-  describe :frozen? do
-    it 'returns false neither fields nor leader are frozen' do
-      expect(marc_record.leader).not_to be_frozen # just to be sure
-      expect(marc_record.fields).not_to be_frozen # just to be sure
-      expect(marc_record).not_to be_frozen
-    end
-
-    it 'returns false if only fields are frozen' do
-      expect(marc_record.leader).not_to be_frozen # just to be sure
-      expect(marc_record.fields).not_to be_frozen # just to be sure
-      marc_record.leader.freeze
-      expect(marc_record).not_to be_frozen
-    end
-
-    it 'returns false if only leader is frozen' do
-      expect(marc_record.leader).not_to be_frozen # just to be sure
-      expect(marc_record.fields).not_to be_frozen # just to be sure
-      marc_record.fields.freeze
-      expect(marc_record).not_to be_frozen
-    end
-
-    it 'returns false if neither fields nor leader are frozen' do
-      expect(marc_record.leader).not_to be_frozen # just to be sure
-      expect(marc_record.fields).not_to be_frozen # just to be sure
-      expect(marc_record).not_to be_frozen
-    end
-
-    it 'returns true if both fields and leader are frozen' do
-      expect(marc_record.leader).not_to be_frozen # just to be sure
-      expect(marc_record.fields).not_to be_frozen # just to be sure
-      marc_record.fields.freeze
-      marc_record.leader.freeze
-      expect(marc_record).to be_frozen
-    end
-  end
-
   describe :data_fields do
     it 'returns only the data fields' do
       expected_tags = %w[024 035 245 336 505 505 505 505 505 505 540 852 856 856 901 902 902 980 982 991]

@@ -77,12 +77,12 @@ module MARCExtensions
       leader.freeze
       fields.each(&:freeze)
       fields.freeze
-      self
+      super
     end
 
     # @return [Boolean] true if the fields and leader are frozen
     def frozen?
-      (fields.frozen? && leader.frozen?)
+      (fields.frozen? && leader.frozen?) && super
     end
 
     # TODO: use info from parsed documentation? or move to TIND-specific extension
