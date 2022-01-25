@@ -4,6 +4,7 @@ module BerkeleyLibrary
   module Marc
     module FieldInfo
       module VarFields
+        # An indicator value definition.
         class IndValDef
           # TODO: include Comparable
           include Obsolescible
@@ -17,6 +18,7 @@ module BerkeleyLibrary
             @desc = desc
           end
 
+          # see Object#to_s
           def to_s
             "#{val} - #{desc}"
           end

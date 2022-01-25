@@ -1,1 +1,6 @@
---no-private --protected lib/**/*.rb -m markdown
+--no-private
+--protected
+-m markdown
+-o ./artifacts/doc
+--exclude lib/berkeley_library/marc/field_info/var_fields/data
+lib/**/*.rb

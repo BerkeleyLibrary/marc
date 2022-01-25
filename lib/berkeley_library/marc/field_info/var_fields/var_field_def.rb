@@ -7,6 +7,7 @@ module BerkeleyLibrary
   module Marc
     module FieldInfo
       module VarFields
+        # A variable field definition.
         class VarFieldDef
           include Obsolescible
 
@@ -20,6 +21,7 @@ module BerkeleyLibrary
             @inst_or_voices_codes = inst_or_voices_codes
           end
 
+          # see Object#to_s
           def to_s
             blocks = ["#{tag} - #{desc}"]
 
@@ -30,6 +32,7 @@ module BerkeleyLibrary
             blocks.join("\n")
           end
 
+          # @see Obsolescible#reject_obsoletes
           def reject_obsoletes
             VarFieldDef.new(
               tag: tag,

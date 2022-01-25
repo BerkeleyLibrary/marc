@@ -7,8 +7,21 @@ module BerkeleyLibrary
       module VarFields
         # TODO: flag [OBSOLETE], (R), (NR)
         # rubocop:disable Style/BlockDelimiters
+
+        # Transformer converting {VarFieldParser} output to a {VarFieldList}.
+        # Usage:
+        #
+        # ```ruby
+        # parser = VarFieldParser.new
+        # parse_tree = parser.parse('docs.txt')
+        # xform = VarFieldTransform.new
+        # var_field_list = xform.apply(parse_tree)
+        # ```
         class VarFieldTransform < Parslet::Transform
 
+          # Intermediate representation of structures constisting of
+          # a `val` and a `desc` (includes {IndValDef}, {SubfieldVal},
+          # and {InstrumentOrVoicesCode}).
           class AnyValue
             attr_reader :val, :desc
 
@@ -17,14 +30,20 @@ module BerkeleyLibrary
               @desc = desc
             end
 
+            # Converts this {AnyValue} to an {IndValDef}.
+            # @return [IndValDef] the {IndValDef}
             def to_ind_val_def
               IndValDef.new(val: val, desc: desc)
             end
 
+            # Converts this {AnyValue} to an {SubfieldVal}.
+            # @return [SubfieldVal] the {SubfieldVal}
             def to_subfield_val
               SubfieldVal.new(val: val, desc: desc)
             end
 
+            # Converts this {AnyValue} to an {InstrumentOrVoicesCode}.
+            # @return [InstrumentOrVoicesCode] the {InstrumentOrVoicesCode}
             def to_ivc
               InstrumentOrVoicesCode.new(val: val, desc: desc)
             end

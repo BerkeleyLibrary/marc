@@ -4,6 +4,7 @@ require 'marc_extensions/field_map'
 require 'marc_extensions/data_field'
 
 module MARCExtensions
+  # Extensions to [MARC::Record](https://rubydoc.info/gems/marc/MARC/Record).
   module RecordExtensions
 
     # Gets the specified fields in order by tag.
@@ -38,6 +39,7 @@ module MARCExtensions
     #   Yields each control field.
     #   @yieldparam field [MARC::ControlField] Each control field.
     def each_control_field(&block)
+      # noinspection RubyMismatchedReturnType
       each_sorted_by_tag.take_while { |df| df.tag.to_i <= 10 }.each(&block)
     end
 
@@ -52,6 +54,7 @@ module MARCExtensions
     #   Yields each data field.
     #   @yieldparam field [MARC::DataField] Each data field.
     def each_data_field(&block)
+      # noinspection RubyMismatchedReturnType
       each_sorted_by_tag.select { |df| df.tag.to_i > 10 }.each(&block)
     end
 
@@ -72,20 +75,24 @@ module MARCExtensions
       data_fields_by_tag.values.flatten
     end
 
-    # Freezes the leader and fields.
+    # Recursively freezes this record, along with its leader and fields.
+    # @return [MARC::Record] this record.
     def freeze
+      return if frozen?
+
       leader.freeze
-      fields.each(&:freeze)
       fields.freeze
       super
     end
 
+    # Whether this record, its fields, and leader are all frozen.
     # @return [Boolean] true if the fields and leader are frozen
     def frozen?
       (fields.frozen? && leader.frozen?) && super
     end
 
-    # TODO: use info from parsed documentation? or move to TIND-specific extension
+    # Returns the canonical ID from the 001 control field.
+    # @return [String, nil] the 001 control field value, or nil if not present
     def record_id
       cf_001 = self['001']
       return cf_001.value if cf_001
@@ -102,7 +109,10 @@ module MARCExtensions
   end
 end
 
+# Extensions to [ruby-marc](https://rubydoc.info/gems/marc/)
+# @see https://rubydoc.info/gems/marc/MARC RubyGems documentation
 module MARC
+  # Applies the extensions in {MARCExtensions::RecordExtensions}.
   # @see https://rubydoc.info/gems/marc/MARC/Record RubyGems documentation
   class Record
     prepend MARCExtensions::RecordExtensions

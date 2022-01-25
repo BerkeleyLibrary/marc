@@ -5,10 +5,12 @@ module BerkeleyLibrary
   module Marc
     module FieldInfo
       module VarFields
+        # An indicator definition.
         class IndDef
           # TODO: include Comparable
           include Obsolescible
 
+          # Human-readable position names
           POS_NAMES = { 1 => 'First', 2 => 'Second' }.freeze
 
           attr_reader :pos
@@ -23,10 +25,12 @@ module BerkeleyLibrary
             @val_defs = val_defs
           end
 
+          # @see Obsolescible#reject_obsoletes
           def reject_obsoletes
             IndDef.new(pos: pos, desc: desc, val_defs: _reject_obsolete(val_defs))
           end
 
+          # see Object#to_s
           def to_s
             lines = ["#{POS_NAMES[pos]} - #{desc}"]
             val_defs.each { |v| lines << "   #{v}" }

@@ -6,6 +6,9 @@ module BerkeleyLibrary
       module VarFields
 
         # rubocop:disable Style/BlockDelimiters
+
+        # Parses MARC documentation in the format used by the
+        # Library of Congress [field list](https://www.loc.gov/marc/bibliographic/ecbdlist.html).
         class VarFieldParser < Parslet::Parser
 
           # ------------------------------------------------------------
@@ -122,10 +125,27 @@ module BerkeleyLibrary
           # ------------------------------------------------------------
           # Parser
 
+          # Parses the specified field documentation.
+          # Usage:
+          #
+          # ```ruby
+          # parser = VarFieldParser.new
+          # parse_tree = parser.parse('docs.txt')
+          # xform = VarFieldTransform.new
+          # var_field_list = xform.apply(parse_tree)
+          # ```
+          #
+          # @param io [String, Source] input for the parse process
+          # @option options [Parslet::ErrorReporter] :reporter error reporter to use,
+          #   defaults to Parslet::ErrorReporter::Tree
+          # @option options [Boolean] :prefix Should a prefix match be accepted?
+          #   (default: false)
+          # @return [Hash] a parse tree suitable for input to {VarFieldTransform}
           def parse(io, options = nil)
             opts = { reporter: Parslet::ErrorReporter::Deepest.new }
             opts.merge!(options) if options
 
+            # noinspection RubyMismatchedReturnType
             super(io, opts)
           end
         end
