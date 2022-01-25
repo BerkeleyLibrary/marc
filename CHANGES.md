@@ -1,3 +1,21 @@
+# 0.3.0 (2022-01-25)
+
+Fixes:
+
+- Methods in `MARCExtensions::RecordExtensions` and `MARCExtensions::FieldMapExtensions`
+  now correctly return `Enumerator::Lazy` as documented.
+- Fix issue where `freeze:` option to `MARC::XMLReader#new` or `MARC::XMLReader#read`
+  was accepted, but not implemented
+- Test `MARC::XMLReader` extensions with both `MARC::REXMLReader` and `MARC::NokogiriReader`
+  - **Note:** the extensions _should_ work with `JREXMLReader`, `JRubyStaxReader`, and
+    `LibXMLReader`, but these have not been tested.
+
+Possible breaking changes:
+
+- The unused constant `MARCExtensions::FieldMapExtensions::VALID_TAGS` has been removed.
+- `MARC::XMLReader#read` now takes an `options` hash instead of a `freeze:` keyword
+  parameter for better compatibility with `MARC::XMLReader#new`, esp. in Ruby 2.x.
+
 # 0.2.1 (2021-10-16)
 
 - Add [MARC::Spec](https://github.com/BerkeleyLibrary/marc-spec)

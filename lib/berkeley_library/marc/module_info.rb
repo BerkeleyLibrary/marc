@@ -24,7 +24,7 @@ module BerkeleyLibrary
       LICENSE = 'MIT'.freeze
 
       # Gem version
-      VERSION = '0.2.1'.freeze
+      VERSION = '0.3.0'.freeze
 
       # Gem homepage
       HOMEPAGE = 'https://github.com/BerkeleyLibrary/marc'.freeze
