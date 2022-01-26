@@ -14,9 +14,17 @@ module MARCExtensions
     # # => true
     # ```
     #
+    # @overload initialize(file, options)
+    #   @param file [String, IO] a string file path, or an IO object
+    #   @option options parser [String] ('rexml') which parser to use
+    #   @option options freeze [Boolean] (false) whether to freeze records as they're created
+    # @overload initialize(file, parser: 'rexml', freeze: false)
+    #   @param file [String, IO] a string file path, or an IO object
+    #   @param parser [String] ('rexml') which parser to use
+    #   @param freeze [Boolean] (false) whether to freeze records as they're created
     # @see MARCExtensions::RecordExtensions#freeze
-    def initialize(file, options = {})
-      @freeze = options[:freeze]
+    def initialize(*args)
+      file, options, @freeze = destructure_args(args)
       super(file, options)
 
       # It's surprisingly tricky to get these into the general superclass
@@ -27,16 +35,33 @@ module MARCExtensions
         class << self; prepend(MARCExtensions::BuildFrozenRecord); end
       end
     end
+
+    private
+
+    # Handle either an options hash or keyword arguments in a way
+    # that works under both Ruby 2.7 and Ruby 3.x
+    def destructure_args(args)
+      file = args[0]
+      options = args[1] || {}
+      freeze = options[:freeze] || false
+      [file, options, freeze]
+    end
   end
 
   # Class extensions for [MARC::XMLReader](https://rubydoc.info/gems/marc/MARC/XMLReader).
   module XMLReaderClassExtensions
     # Reads MARC records from the specified file or IO
     #
-    # @param file [String, IO] a string file path, or an IO object
-    # @return [MARC::XMLReader] a reader for the specified file or IO
-    def read(file, options = {})
-      new(file, options)
+    # @overload read(file, options)
+    #   @param file [String, IO] a string file path, or an IO object
+    #   @option parser [String] ('rexml') which parser to use
+    #   @option freeze [Boolean] (false) whether to freeze records as they're created
+    # @overload read(file, parser: 'rexml', freeze: false)
+    #   @param file [String, IO] a string file path, or an IO object
+    #   @param parser [String] ('rexml') which parser to use
+    #   @param freeze [Boolean] (false) whether to freeze records as they're created
+    def read(*args)
+      new(*args)
     end
   end
 

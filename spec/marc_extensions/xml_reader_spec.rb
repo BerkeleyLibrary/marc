@@ -14,6 +14,24 @@ module MARC
         reader = XMLReader.new(infile_path, { parser: 'nokogiri' })
         expect(reader).to be_a(NokogiriReader)
       end
+
+      it 'accepts a hash of options' do
+        reader = XMLReader.new(infile_path, { parser: 'nokogiri', freeze: true })
+        expect(reader).to be_a(NokogiriReader)
+        expect(reader.instance_variable_get(:@freeze)).to eq(true)
+      end
+
+      it 'accepts keyword arguments' do
+        reader = XMLReader.new(infile_path, parser: 'nokogiri', freeze: true)
+        expect(reader).to be_a(NokogiriReader)
+        expect(reader.instance_variable_get(:@freeze)).to eq(true)
+      end
+
+      it 'accepts a hash of options' do
+        reader = XMLReader.new(infile_path, { parser: 'nokogiri', freeze: true })
+        expect(reader).to be_a(NokogiriReader)
+        expect(reader.instance_variable_get(:@freeze)).to eq(true)
+      end
     end
 
     describe :read do
