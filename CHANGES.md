@@ -1,3 +1,10 @@
+# 0.3.1 (2022-01-26)
+
+- Fixes issue where `MARC::XMLReader#new` and `MARC::XMLReader#read` would
+  accept keyword arguments under Ruby 2.7.x, but not under Ruby 3.x; both
+  methods should now accept either keyword arguments or an options hash,
+  under either Ruby version.
+
 # 0.3.0 (2022-01-25)
 
 Fixes:
