@@ -5,3 +5,17 @@
 
 MARC-related utility code and opinionated extensions to [ruby-marc](https://github.com/ruby-marc/ruby-marc)
 for the UC Berkeley Library.
+
+## Installation
+
+In your Gemfile:
+
+```ruby
+gem 'berkeley_library-marc'
+```
+
+In your code:
+
+```ruby
+require 'berkeley_library/marc'
+```
