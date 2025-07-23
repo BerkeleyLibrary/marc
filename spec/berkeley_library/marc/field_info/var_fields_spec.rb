@@ -6,8 +6,8 @@ module BerkeleyLibrary
     module FieldInfo
       describe VarFields do
 
-        describe :standard do
-          let(:standard) { VarFields.standard }
+        describe '#standard' do
+          let(:standard) { described_class.standard }
 
           it 'loads all standard fields' do
             expect(standard).to be_a(VarFields::VarFieldList)
@@ -59,7 +59,7 @@ module BerkeleyLibrary
           end
 
           it 'returns obsolete fields with a flag' do
-            lines_actual = VarFields.standard(obsolete: true).to_s.lines(chomp: true).map(&:strip)
+            lines_actual = described_class.standard(obsolete: true).to_s.lines(chomp: true).map(&:strip)
 
             var_fields_standard_txt = File.read('lib/berkeley_library/marc/field_info/var_fields/data/var_fields_standard.txt')
             lines_expected = var_fields_standard_txt
@@ -70,7 +70,7 @@ module BerkeleyLibrary
             expect(lines_actual.size).to eq(lines_expected.size)
             lines_expected.each_with_index do |l_ex, i|
               # typo in standard.txt definition of 880 subfields
-              l_ex = l_ex.sub('Same', '- Same') if i >= 5052 && i <= 5056
+              l_ex = l_ex.sub('Same', '- Same') if i.between?(5052, 5056)
               expect(lines_actual[i]).to eq(l_ex), "Wrong value at line #{i}:\n\texpected: #{l_ex}, actual: #{lines_actual[i]}"
             end
           end
@@ -78,7 +78,7 @@ module BerkeleyLibrary
       end
 
       describe 'custom fields' do
-        describe :berkeley_9xx do
+        describe '#berkeley_9xx' do
           let(:berkeley_9xx) { VarFields.berkeley_9xx }
 
           it 'loads all berkeley_9xx fields' do
@@ -88,7 +88,8 @@ module BerkeleyLibrary
         end
 
         # TODO: get these working
-        xdescribe :tind_reserved do
+        # rubocop:disable RSpec/PendingWithoutReason
+        xdescribe '#tind_reserved' do
           let(:tind_reserved) { VarFields.tind_reserved }
 
           it 'loads all tind_reserved fields' do
@@ -97,7 +98,7 @@ module BerkeleyLibrary
           end
         end
 
-        xdescribe :berkeley_tind do
+        xdescribe '#berkeley_tind' do
           let(:berkeley_tind) { VarFields.berkeley_tind }
 
           it 'loads all berkeley_tind fields' do
@@ -105,6 +106,7 @@ module BerkeleyLibrary
             expect(berkeley_tind.size).to eq(9) # TODO: more assertions
           end
         end
+        # rubocop:enable RSpec/PendingWithoutReason
 
       end
     end

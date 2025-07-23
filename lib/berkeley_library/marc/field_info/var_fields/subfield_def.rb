@@ -43,7 +43,7 @@ module BerkeleyLibrary
           # see Object#to_s
           def to_s
             lines = ["$#{code_str} - #{desc}"]
-            values.each { |v| lines << INDENT + v.to_s }
+            values.each { |v| lines << (INDENT + v.to_s) }
             lines.join("\n")
           end
 

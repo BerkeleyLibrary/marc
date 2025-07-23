@@ -88,14 +88,14 @@ module MARCExtensions
     # Whether this record, its fields, and leader are all frozen.
     # @return [Boolean] true if the fields and leader are frozen
     def frozen?
-      (fields.frozen? && leader.frozen?) && super
+      fields.frozen? && leader.frozen? && super
     end
 
     # Returns the canonical ID from the 001 control field.
     # @return [String, nil] the 001 control field value, or nil if not present
     def record_id
       cf_001 = self['001']
-      return cf_001.value if cf_001
+      cf_001.value if cf_001
     end
 
     # Apply the provided [MARCSpec](http://marcspec.github.io/MARCspec/marc-spec.html)

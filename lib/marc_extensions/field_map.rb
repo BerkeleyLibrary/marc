@@ -44,10 +44,10 @@ module MARCExtensions
 
     def indices_for(tags)
       sorted_tag_array(tags || tag_list)
-        .lazy                                      # prevent unnecessary allocations
-        .map { |t| @tags[t] }                      # get indices for each tag
-        .reject(&:nil?)                            # ignoring any tags we don't have fields for
-        .flat_map { |x| x }                        # flatten list of indices -- equiv. Array#flatten
+        .lazy                 # prevent unnecessary allocations
+        .map { |t| @tags[t] } # get indices for each tag
+        .compact              # ignoring any tags we don't have fields for
+        .flat_map { |x| x }   # flatten list of indices -- equiv. Array#flatten
     end
 
     def sorted_tag_array(tags)
