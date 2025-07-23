@@ -1,3 +1,8 @@
+# 0.3.2 (2025-07-23)
+
+- Update to support Ruby 3.3+.
+- Update Rubocop & style changes.
+
 # 0.3.1 (2022-01-26)
 
 - Fixes issue where `MARC::XMLReader#new` and `MARC::XMLReader#read` would
