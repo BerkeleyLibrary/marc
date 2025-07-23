@@ -2,7 +2,7 @@ File.expand_path('lib', __dir__).tap do |lib|
   $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 end
 
-ruby_version = '>= 2.7'
+ruby_version = '~> 3.3'
 
 require 'berkeley_library/marc/module_info'
 
@@ -30,14 +30,14 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'ci_reporter_rspec', '~> 1.0'
   spec.add_development_dependency 'colorize', '~> 0.8'
   spec.add_development_dependency 'dotenv', '~> 2.7'
-  spec.add_development_dependency 'listen', '>= 3.0.5', '< 3.2'
+  spec.add_development_dependency 'listen', '~> 3.2'
   spec.add_development_dependency 'nokogiri', '~> 1.13'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.10'
-  spec.add_development_dependency 'rubocop', '= 1.11'
-  spec.add_development_dependency 'rubocop-rake', '~> 0.5'
-  spec.add_development_dependency 'rubocop-rspec', '~> 2.2'
-  spec.add_development_dependency 'ruby-prof', '~> 0.17.0'
+  spec.add_development_dependency 'rubocop', '~> 1.78.0'
+  spec.add_development_dependency 'rubocop-rake', '~> 0.7.0'
+  spec.add_development_dependency 'rubocop-rspec', '~> 3.6.0'
+  spec.add_development_dependency 'ruby-prof'
   spec.add_development_dependency 'simplecov', '~> 0.21'
   spec.add_development_dependency 'simplecov-rcov', '~> 0.2'
   spec.add_development_dependency 'yard', '~> 0.9.27'
