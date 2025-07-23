@@ -32,6 +32,24 @@ Metrics/ModuleLength:
 Metrics/MethodLength:
   Enabled: false
 
+RSpec/ExampleLength:
+  Exclude:
+    - 'berkeley_library/marc/field_info/**/*.rb'
+    - 'marc_extensions/*.rb'
+
+RSpec/RepeatedExampleGroupDescription:
+  Exclude:
+    - 'berkeley_library/marc/field_info/**/*.rb'
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'berkeley_library/marc/field_info/**/*.rb'
+    - 'marc_extensions/*.rb'
+
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - 'marc_extensions/*.rb'
+
 ############################################################
 # Added in Rubocop 0.89
 

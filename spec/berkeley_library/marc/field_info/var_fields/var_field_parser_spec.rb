@@ -8,10 +8,10 @@ module BerkeleyLibrary
     module FieldInfo
       module VarFields
         describe VarFieldParser do
-          let(:parser) { VarFieldParser.new }
+          let(:parser) { described_class.new }
           let(:printable_chars) { [0x21..0x3f, 0x5b..0x7b, 0x7d..0x7e].map(&:to_a).flatten.map { |cp| cp.chr(Encoding::UTF_8) } }
 
-          describe(:blank) do
+          describe '#blank' do
             it 'matches space' do
               expect(parser.blank).to parse(' ', trace: true)
             end
@@ -21,7 +21,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:printable) do
+          describe '#printable' do
             it 'matches space' do
               expect(parser.printable).to parse(' ', trace: true)
             end
@@ -42,7 +42,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:text) do
+          describe '#text' do
             it 'matches text' do
               expect(parser.text).to parse('Undefined', trace: true)
             end
@@ -61,7 +61,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:ln_br) do
+          describe '#ln_br' do
             it 'matches a Windows line break' do
               expect(parser.ln_br).to parse("\r\n", trace: true)
             end
@@ -74,7 +74,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:eol) do
+          describe '#eol' do
             it 'matches a newline' do
               expect(parser.eol).to parse("\n", trace: true)
             end
@@ -84,13 +84,13 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:text) do
+          describe '#text' do
             it 'matches an ASCII printable sequence' do
               expect(parser.text).to parse(printable_chars.join, trace: true)
             end
           end
 
-          describe(:comment) do
+          describe '#comment' do
             it 'matches a comment' do
               expect(parser.comment).to parse('// this is a comment', trace: true)
             end
@@ -100,7 +100,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:nc) do
+          describe '#nc' do
             it 'matches a comment' do
               expect(parser.nc).to parse('// this is a comment', trace: true)
             end
@@ -138,7 +138,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:ind_def) do
+          describe '#ind_def' do
             it 'parses an indicator definition' do
               ind_def = '0 - No added entry'
               expect(parser.ind_def).to parse(ind_def, trace: true)
@@ -155,7 +155,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:indicators) do
+          describe '#indicators' do
             it 'matches an empty indicator definition' do
               ind_def = <<~TXT.strip
                 Indicators
@@ -240,7 +240,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:subfield_value) do
+          describe '#subfield_value' do
             it 'parses a single-character value' do
               expect(parser.subfield_value).to parse('1 - Form of name', trace: true)
             end
@@ -250,7 +250,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:subfield_def) do
+          describe '#subfield_def' do
             it 'parses a subfield code definition without values' do
               subfield_def = '$4 - Relationship (R)'
               expect(parser.subfield_def).to parse(subfield_def, trace: true)
@@ -276,7 +276,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:subfield_codes) do
+          describe '#subfield_codes' do
             it 'parses a typical set of subfield codes' do
               subfield_codes = <<~TXT.strip
                 Subfield Codes
@@ -315,7 +315,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:ivc_def) do
+          describe '#ivc_def' do
             it 'parses instrument or voices codes' do
               ivc_def = <<~TXT.strip
                 Instrument or Voices Codes
@@ -328,7 +328,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:vf) do
+          describe '#vf' do
             it 'parses a typical field' do
               vf = <<~TXT.strip
                 886 - FOREIGN MARC INFORMATION FIELD (R)
@@ -396,13 +396,13 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:section_header) do
+          describe '#section_header' do
             it 'matches a section header' do
               expect(parser.section_header).to parse('--Number and Code Fields (01X-04X)--', trace: true)
             end
           end
 
-          describe(:section) do
+          describe '#section' do
             it 'matches a section with header' do
               section = <<~TXT.strip
                 --Number and Code Fields (01X-04X)--
@@ -460,7 +460,7 @@ module BerkeleyLibrary
             end
           end
 
-          describe(:list) do
+          describe '#list' do
             it 'parses multiple sections' do
               sections = <<~TXT.strip
                 --Number and Code Fields (01X-04X)--
@@ -510,7 +510,7 @@ module BerkeleyLibrary
 
           end
 
-          describe(:parse) do
+          describe '#parse' do
             it 'parses the standard list' do
               list = File.read(VarFields::PATH_STANDARD)
               expect(parser).to parse(list, trace: true)

@@ -51,10 +51,10 @@ module BerkeleyLibrary
           def concat_indented(blocks, values, header)
             return if values.empty?
 
-            blocks << INDENT + header
+            blocks << (INDENT + header)
             values.each do |v|
               lines = v.to_s.lines(chomp: true)
-              lines.each { |line| blocks << INDENT + INDENT + line }
+              lines.each { |line| blocks << (INDENT + INDENT + line) }
             end
           end
 

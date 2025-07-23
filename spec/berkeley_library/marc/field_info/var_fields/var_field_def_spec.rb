@@ -6,7 +6,7 @@ module BerkeleyLibrary
       module VarFields
         describe VarFieldDef do
           describe 'to_s' do
-            let(:fields) { %w[046 048].map { |t| [t, VarFields.standard.find { |vf| vf.tag == t }] }.to_h }
+            let(:fields) { %w[046 048].to_h { |t| [t, VarFields.standard.find { |vf| vf.tag == t }] } }
 
             it 'returns something like an EBCDList' do
               aggregate_failures('to_s') do

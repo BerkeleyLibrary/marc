@@ -12,7 +12,7 @@ module BerkeleyLibrary
           # it as obsolete, false otherwise
           # @return [Boolean] true if obsolete, false otherwise
           def obsolete?
-            return unless respond_to?(:desc)
+            return false unless respond_to?(:desc)
 
             desc&.include?(OBSOLETE)
           end

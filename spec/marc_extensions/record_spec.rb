@@ -3,13 +3,13 @@ require 'spec_helper'
 describe MARC::Record do
   let(:marc_record) { MARC::XMLReader.read('spec/data/record-187888.xml').first }
 
-  describe :record_id do
+  describe '#record_id' do
     it 'returns the 001 control field value, if present' do
       expect(marc_record.record_id).to eq('187888')
     end
   end
 
-  describe :freeze do
+  describe '#freeze' do
     it 'freezes the fields' do
       expect(marc_record.fields).not_to be_frozen # just to be sure
       marc_record.freeze
@@ -22,11 +22,9 @@ describe MARC::Record do
       expect(marc_record.leader).to be_frozen
     end
 
-    it 'freezes the fields' do
+    it 'freezes each field' do
       marc_record.freeze
-      marc_record.fields.each do |df|
-        expect(df).to be_frozen
-      end
+      expect(marc_record.fields).to all(be_frozen)
     end
 
     it 'does not clobber the data' do
@@ -36,7 +34,7 @@ describe MARC::Record do
     end
   end
 
-  describe :data_fields do
+  describe '#data_fields' do
     it 'returns only the data fields' do
       expected_tags = %w[024 035 245 336 505 505 505 505 505 505 540 852 856 856 901 902 902 980 982 991]
       dff = marc_record.data_fields
@@ -73,7 +71,7 @@ describe MARC::Record do
     end
   end
 
-  describe :each_data_field do
+  describe '#each_data_field' do
     it 'returns only the data fields, in order' do
       each_data_field = marc_record.each_data_field
       expect(each_data_field.to_a).to eq(marc_record.data_fields)
@@ -103,7 +101,7 @@ describe MARC::Record do
     end
   end
 
-  describe :each_sorted_by_tag do
+  describe '#each_sorted_by_tag' do
     let(:tags) do
       %w[856 852] # NOTE: not sorted
     end
@@ -144,7 +142,7 @@ describe MARC::Record do
     end
   end
 
-  describe :data_fields_by_tag do
+  describe '#data_fields_by_tag' do
     it 'groups fields by tag' do
       fields = marc_record.fields
 
@@ -172,7 +170,7 @@ describe MARC::Record do
       end
     end
 
-    describe :each_sorted_by_tag do
+    describe '#each_sorted_by_tag' do
       it 'returns all tags if not passed a tag list' do
         fields = marc_record.fields
 
@@ -186,7 +184,7 @@ describe MARC::Record do
     end
   end
 
-  describe :each_control_field do
+  describe '#each_control_field' do
     it 'returns only the control fields' do
       expected_tags = %w[001 005]
       cff = marc_record.each_control_field.to_a
@@ -205,7 +203,7 @@ describe MARC::Record do
     end
   end
 
-  describe :spec do
+  describe '#spec' do
     it 'returns the results of a MARCSpec query' do
       query_str = '856$u{$y~\2}'
 

@@ -127,7 +127,7 @@ module BerkeleyLibrary
               ]
             }
           end
-          let(:xform) { VarFieldTransform.new }
+          let(:xform) { described_class.new }
 
           it 'transforms a comment' do
             comment = { comment: 'A doc comment' }
